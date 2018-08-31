@@ -103,10 +103,13 @@ class ReciboController extends Controller
     public function show(Recibo $recibo)
     {
         $cliente = $recibo->cliente;
-        $pdf = PDF::loadView ('recibos.show', ['recibo' => $recibo, 'cliente' => $cliente]);
+        $fecha = $recibo->created_at->format('l jS \\of F Y');
+        //$pdf = PDF::loadView ('recibos.show', ['recibo' => $recibo, 'cliente' => $cliente]);
 
 
-        return $pdf->stream();
+        //return $pdf->stream();
+
+        return view ('recibos.show', ['cliente'=>$cliente, 'recibo'=>$recibo, 'fecha'=>$fecha]);
     }
 
     /**
