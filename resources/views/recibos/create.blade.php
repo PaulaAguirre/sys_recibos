@@ -3,7 +3,7 @@
 
     <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-6 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Recibo #{{$ultimo_numero+1}}</div>
 
@@ -17,6 +17,7 @@
                                     <option value="{{$cliente->id}}">{{$cliente->name}} {{$cliente->lastname}}</option>
                                 @endforeach
                             </select>
+                            <a href="{{URL::action ('ClienteController@create')}}" style="float: right"><button class="btn btn-bitbucket">Crear cliente</button></a>
                         </div>
 
 
@@ -33,7 +34,7 @@
 
                         <div class="form-group">
                             <label>Monto Saldo</label>
-                            <input type="number" name="monto_recibo" required value="{{old('monto_saldo')}}" class="form-control text-uppercase" placeholder="monto del saldo">
+                            <input type="number" name="monto_saldo" required value="{{old('monto_saldo')}}" class="form-control text-uppercase" placeholder="monto del saldo">
                         </div>
 
 

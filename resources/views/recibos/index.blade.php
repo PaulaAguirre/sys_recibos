@@ -19,6 +19,7 @@
                             <th>Concepto</th>
                             <th>Monto Recibo</th>
                             <th>Monto Saldo</th>
+                            <th>Estado</th>
                             <th>Fecha</th>
                             <th>Opciones</th>
                         </thead>
@@ -29,14 +30,18 @@
                                 <td>{{$recibo->concepto}}</td>
                                 <td>{{$recibo->monto_recibo}}</td>
                                 <td>{{$recibo->monto_saldo}}</td>
+                                <td>{{$recibo->estado}}</td>
                                 <td>{{$recibo->created_at->format('d-m-Y')}}</td>
-                                <td>
-                                    <a href="{{URL::action('ReciboController@show',$recibo)}}"><button class="btn btn-info">Imprimir</button></a>
+                                <td style="text-align: center">
+                                    <a href="{{URL::action('ReciboController@show',$recibo)}}"><button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="fa fa-print" aria-hidden="true"></i></button></a>
+                                    <a href="{{URL::action('ReciboController@edit',$recibo)}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-pencil-square" aria-hidden="true"></i></button></a>
+
                                 </td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
+                {{$recibos->render()}}
             </div>
         </div>
     </div>

@@ -1,59 +1,64 @@
-@extends ('layouts.admin')
-@section ('contenido')
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <h3>Editar Gerencia: {{strtoupper ($gerencia->nombre)}}</h3>
-            @if (count($errors)>0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
+@extends ('layouts.app')
+@section ('content')
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Recibo #{{$recibo->numero_recibo}}</div>
+
+                    <div class="panel-body">
+                        {!!Form::model ($recibo, ['method'=>'PATCH', 'route'=>['recibos.update', $recibo]])!!}
+                        {{Form::token()}}
+                        <div class="form-group">
+                            <label for="nombre">Cliente</label>
+                            <select name="user_id" class="form-control text-uppercase selectpicker" title="Seleccione cliente" data-live-search="true" >
+                                @foreach($clientes as $cliente)
+                                @if($recibo->user_id == $cliente->id)
+                                    <option value="{{$cliente->id}}" selected>{{$cliente->name .' '. $cliente->lastname}}</option>
+                                @else
+                                    <option value="{{$cliente->id}}">{{$cliente->name.' '.$cliente->lastname}}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="descripcion">Concepto</label>
+                            <input type="text" name="concepto" required value="{{$recibo->concepto}}" class="form-control text-uppercase" placeholder="Concepto">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Monto Recibo</label>
+                            <input type="number" name="monto_recibo" required value="{{$recibo->monto_recibo}}" class="form-control text-uppercase" placeholder="monto del recibo">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Monto Saldo</label>
+                            <input type="number" name="monto_saldo" required value="{{$recibo->monto_saldo}}" class="form-control text-uppercase" placeholder="monto del saldo">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select name="estado" class="form-control">
+                                    <option value="activo" selected>activo</option>
+
+                                    <option value="anulado">anulado</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input name="_token" value="{{csrf_token()}}" type="hidden">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                            <button class="btn btn-danger" type="reset">Cancelar</button>
+                        </div>
+                    </div>
                 </div>
-            @endif
+            </div>
         </div>
+        {!!Form::close()!!}
     </div>
-    {!!Form:: model($gerencia, ['method'=>'PATCH', 'route'=>['gerencias.update', $gerencia->id],'files'=>'true'])!!}
-    {{Form::token()}}
-    <div class="row">
-
-        <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12">
-            <div class="form-group">
-                <label for="nombre">Nombre de la Gerencia</label>
-                <input type="text" name="nombre" required value="{{$gerencia->nombre}}" class="form-control text-uppercase" placeholder="Nombre">
-            </div>
-        </div>
-
-        <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12">
-            <div class="form-group">
-                <label for="descripcion">Descripción de la gerencia</label>
-                <input type="text" name="descripcion" required value="{{$gerencia->descripcion}}" class="form-control text-uppercase" placeholder="Descripción">
-            </div>
-        </div>
-
-        <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12">
-            <div class="form-group">
-                <label>Responsable de la Gerencia</label>
-                <select name="user_id" id="user_id" class="form-control text-uppercase selectpicker" title="Seleccione un responsable" data-live-search="true">
-                    @foreach($gerentes as $gerente)
-                        @if ($gerente->id==$gerencia->user->id)
-                            <option value="{{$gerente->id}}" selected>{{strtoupper ($gerente->name)}} {{strtoupper ($gerente->lastname)}}</option>
-                        @else
-                            <option value="{{$gerente->id}}">{{strtoupper ($gerente->name)}} {{strtoupper ($gerente->lastname)}}</option>
-                        @endif
-                    @endforeach
-                </select>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12" id="guardar">
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit">Guardar</button>
-                <button class="btn btn-danger" type="reset">Cancelar</button>
-            </div>
-        </div>
-    </div>
-    {!!Form::close()!!}
 @endsection

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string ('lastname')->nullable ();
             $table->string('email')->unique()->nullable ();
             $table->string ('phone')->nullable ();
-            $table->string('password')->default ('secret123');
+            $table->string('password')->default (bcrypt ('secret'));
             $table->rememberToken();
             $table->timestamps();
         });

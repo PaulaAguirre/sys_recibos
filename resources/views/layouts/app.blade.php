@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom:0;
+            width: 100%;
+            height: 30px;
+            background-color:   #e5e7e9;
+            color: #636b6f;
+            text-align: center;
+        }
+    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +27,7 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{asset ('maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')}}">
 </head>
 <body>
     <div id="app">
@@ -47,11 +60,14 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li class="dropdown">
+                                <li><a href="{{url ('/recibos')}}">Recibos</a></li>
+                                <li><a href="{{url ('/clientes')}}">Clientes</a></li>
+                                <li><a href="{{url ('/users')}}">Usuarios</a></li>
+
+                                <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <span style="color: #500a6f ">{{ Auth::user()->name }}<span class="caret"></span></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -66,16 +82,28 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+
                                 </ul>
+
+
                             </li>
+
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-
         @yield('content')
+
+        <div class="footer">
+            <div class="pull-right hidden-xs">
+                <b>Version. </b><i style="margin-right: 20px">1.0</i>
+            </div>
+            <strong>Developed by <a href="">DELTAnet SRL</a><span> <img src="{{URL::asset('/img/logo deltanet.png')}}" style="width: 2%"></span> </strong>All rights reserved. <strong>Copyright &copy; 2018.</strong>
+        </div>
     </div>
+
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

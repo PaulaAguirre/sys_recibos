@@ -12,10 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth::check ())
+    {
+        return redirect ('/recibos');
+    }
+    else
+    {
+        return redirect ('login');
+    }
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource ('recibos', 'ReciboController');
+Route::group (['middleware'=>'auth'], function (){
+    Route::resource ('recibos', 'ReciboController');
+    Route::resource ('clientes', 'ClienteController');
+    Route::resource ('users', 'UserController');
+});
+
+//Route::get('/home', 'HomeController@index')->name('home');
+

@@ -10,7 +10,7 @@ class Recibo extends Model
     protected $primaryKey = "id";
 
     protected $fillable = [
-        'numero_recibo','user_id','concepto' , 'fecha', 'monto_recibo' ,'monto_saldo',
+        'numero_recibo','user_id','concepto' , 'fecha', 'monto_recibo' ,'monto_saldo', 'estado',
     ];
 
     public function cliente ()

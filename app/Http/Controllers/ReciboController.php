@@ -7,10 +7,20 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade as PDF;
+use function MongoDB\BSON\toJSON;
+use DB;
 
 
 class ReciboController extends Controller
 {
+    /**
+     * ReciboController constructor.
+     */
+    public function __construct ()
+    {
+        return $this->middleware ('roles:2')->only (['edit', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,10 +28,18 @@ class ReciboController extends Controller
      */
     public function index(Request $request)
     {
+
         if($request)
         {
             $query = trim ($request->get ('searchText'));
-            $recibos = Recibo::all();
+            $clientes = DB::table ('users')->where ('tipo_user', '=', 'cliente')
+                ->where ('name', 'like','%'.$query.'%')
+                ->orWhere ('lastname', 'like','%'.$query.'%')
+                ->select ('id');
+
+            $recibos = Recibo::with ('cliente')->where('numero_recibo','like','%'.$query.'%' )
+            ->orWhereIn('user_id', $clientes)
+            ->orderBy ('numero_recibo', 'DESC')->paginate (7);
 
         }
         return view ('recibos.index', ['recibos'=> $recibos, 'searchText'=>$query]);
@@ -35,9 +53,17 @@ class ReciboController extends Controller
     public function create()
     {
         $ultimo_recibo = Recibo::all ()->last();
-        $ultimo_numero = $ultimo_recibo->numero_recibo;
+
+        if(!$ultimo_recibo)
+        {
+            $ultimo_numero = 0;
+        }
+        else
+        {
+            $ultimo_numero = $ultimo_recibo->numero_recibo;
+        }
+
         $clientes = User::where('tipo_user', '=', 'cliente')->get ();
-       // dd ($ultimo_numero);
         return view ('recibos.create', ['clientes'=>$clientes, 'ultimo_numero'=>$ultimo_numero]);
 
     }
@@ -51,11 +77,19 @@ class ReciboController extends Controller
     public function store(Request $request)
     {
         $recibo_anterior = Recibo::all ()->last();
-        $numero_anterior = $recibo_anterior->numero_recibo;
+
+        if (!$recibo_anterior){
+            $numero_anterior = 0;
+        }
+        else
+        {
+            $numero_anterior = $recibo_anterior->numero_recibo;
+        }
 
         $recibo = new Recibo($request->all ());
         $recibo->numero_recibo =$numero_anterior+1;
         $recibo->fecha = Carbon::now ();
+
         $recibo->save ();
         return redirect ('recibos');
     }
@@ -83,7 +117,10 @@ class ReciboController extends Controller
      */
     public function edit(Recibo $recibo)
     {
-        //
+        $clientes = User::where('tipo_user', '=', 'cliente')->get ();
+
+        return view ('recibos.edit', ['recibo'=>$recibo, 'clientes'=>$clientes]);
+
     }
 
     /**
@@ -95,7 +132,10 @@ class ReciboController extends Controller
      */
     public function update(Request $request, Recibo $recibo)
     {
-        //
+        $recibo->fill ($request->all ());
+        $recibo->update();
+
+        return redirect ('recibos');
     }
 
     /**
@@ -106,6 +146,7 @@ class ReciboController extends Controller
      */
     public function destroy(Recibo $recibo)
     {
-        //
+        $recibo->delete ();
+        return redirect ()->back ();
     }
 }
