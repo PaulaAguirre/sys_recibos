@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row text-uppercase">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-condensed table-hover">
@@ -28,8 +28,8 @@
                                 <td>{{$recibo->numero_recibo}}</td>
                                 <td>{{$recibo->cliente->name}} {{$recibo->cliente->lastname}}</td>
                                 <td>{{$recibo->concepto}}</td>
-                                <td>{{$recibo->monto_recibo}}</td>
-                                <td>{{$recibo->monto_saldo}}</td>
+                                <td>{{number_format ($recibo->monto_recibo,0, ",", ".")}}</td>
+                                <td>{{number_format ($recibo->monto_saldo,0, ",", ".")}}</td>
                                 <td>{{$recibo->estado}}</td>
                                 <td>{{$recibo->created_at->format('d-m-Y')}}</td>
                                 <td style="text-align: center">

@@ -3,7 +3,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Recibo #{{$recibo->numero_recibo}}</div>
 
@@ -31,8 +31,16 @@
 
 
                         <div class="form-group">
-                            <label>Monto Recibo</label>
-                            <input type="number" name="monto_recibo" required value="{{$recibo->monto_recibo}}" class="form-control text-uppercase" placeholder="monto del recibo">
+                            <label>Monto Efectivo</label>
+                            <input type="number" name="efectivo" required value="{{$recibo->efectivo}}" class="form-control text-uppercase" placeholder="efectivo recibido">
+                        </div>
+                        <div class="form-group">
+                            <label>Monto Cheque</label>
+                            <input type="number" name="cheque" required value="{{$recibo->cheque}}" class="form-control text-uppercase" placeholder="cheque recibido">
+                        </div>
+                        <div class="form-group">
+                            <label>Otros medios de pago</label>
+                            <input type="number" name="otros" required value="{{$recibo->otros}}" class="form-control text-uppercase" placeholder="otros">
                         </div>
 
                         <div class="form-group">

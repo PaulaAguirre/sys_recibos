@@ -7,15 +7,20 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade as PDF;
+use Jenssegers\Date\Date;
 use function MongoDB\BSON\toJSON;
 use DB;
 
 
+
 class ReciboController extends Controller
 {
+
     /**
      * ReciboController constructor.
      */
+
+
     public function __construct ()
     {
         return $this->middleware ('roles:2')->only (['edit', 'update']);
@@ -76,6 +81,7 @@ class ReciboController extends Controller
      */
     public function store(Request $request)
     {
+
         $recibo_anterior = Recibo::all ()->last();
 
         if (!$recibo_anterior){
@@ -88,6 +94,7 @@ class ReciboController extends Controller
 
         $recibo = new Recibo($request->all ());
         $recibo->numero_recibo =$numero_anterior+1;
+        $recibo->monto_recibo = $request->get ('efectivo')+ $request->get ('cheque') + $request->get ('otros');
         $recibo->fecha = Carbon::now ();
 
         $recibo->save ();
@@ -102,12 +109,12 @@ class ReciboController extends Controller
      */
     public function show(Recibo $recibo)
     {
+
+
         $cliente = $recibo->cliente;
-        $fecha = $recibo->created_at->format('l jS \\of F Y');
-        //$pdf = PDF::loadView ('recibos.show', ['recibo' => $recibo, 'cliente' => $cliente]);
 
+        $fecha = new Date($recibo->created_at);
 
-        //return $pdf->stream();
 
         return view ('recibos.show', ['cliente'=>$cliente, 'recibo'=>$recibo, 'fecha'=>$fecha]);
     }
@@ -136,6 +143,7 @@ class ReciboController extends Controller
     public function update(Request $request, Recibo $recibo)
     {
         $recibo->fill ($request->all ());
+        $recibo->monto_recibo = $request->get ('efectivo')+ $request->get ('cheque') + $request->get ('otros');
         $recibo->update();
 
         return redirect ('recibos');

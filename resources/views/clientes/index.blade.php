@@ -24,7 +24,7 @@
                         @foreach($clientes as $cliente)
                             <tr>
                                 <td>{{$cliente->id}}</td>
-                                <td>{{$cliente->name}} {{$cliente->lastname}}</td>
+                                <td class="text-uppercase">{{$cliente->name}} {{$cliente->lastname}}</td>
                                 <td>{{$cliente->email}}</td>
                                 <td>{{$cliente->phone}}</td>
                                 <td style="text-align: center">

@@ -1,5 +1,6 @@
 <html lang="es">
 <head>
+
    <style>
        body{
            background-color:#DEDEDE;
@@ -25,7 +26,7 @@
        section, pre{margin:0px;}
        .bordeRecibo section{padding:20px;}
        footer{position:absolute; bottom:0;left:0;right:0;padding:20px 0px 20px 0px;} /*Para que el footer llegue hasta abajo*/
-       img{margin-bottom:2px;height:85px;max-width:208;}
+       img{margin-bottom:2px;height:85px;max-width:208px;}
 
        .column{height: calc(100% - 8px);}
        .row{left:0;right:0;position:relative;}
@@ -48,7 +49,7 @@
        #hr{width:30%;border-top:1px solid #000000;height:1px;position:absolute;right:20px;}
        #firma{padding-top:30mm;position:relative;}
 
-       .importeEnPesos:before{content:'$';}
+       .importeEnPesos:before{content:'Gs.';}
 
        @media screen{
            body{background-color:#DEDEDE;}
@@ -123,23 +124,33 @@
             </div>
         </header>
 
-        <section>{{$fecha}}
+        <section>{{ucwords($fecha->format('l j F Y '))
+}}
             <br>
             <br>
-            <span class="preimpreso">Recibimos de</span> Sr Juan Martinez
+            <span class="preimpreso">Recibimos de</span> Sr/Sra {{ ucwords($recibo->cliente->name .' '.$recibo->cliente->lastname) }}
             <br>
-            <span class="preimpreso">la cantidad de </span><span id="importeEnLetras">20.000 Gs</span>
+            <span class="preimpreso">la cantidad de </span><span id="importeEnLetras">{{number_format ($recibo->monto_recibo,0, ",", ".")   }} Gs</span>
         </section>
 
         <section id="sectionMedioPago">
-            <span class="preimpreso">Mediante</span>
+            <span class="preimpreso">Forma de Pago</span>
+                <div class="row">
+                    <span>Efectivo</span>
+                    <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->efectivo,0, ",", ".")}}</span>
+                </div>
             <div class="row">
-                <span>Efectivo</span>
-                <span class="pull-right negrita importeEnPesos">500.000</span>
+                <span>Cheque</span>
+                <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->cheque,0, ",", ".")}}</span>
             </div>
             <div class="row">
-                <span>Transferencia Bancaria</span>
-                <span class="pull-right negrita importeEnPesos">0</span>
+                <span>Otros</span>
+                <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->otros,0, ",", ".")}}</span>
+            </div>
+            <span class="preimpreso">Monto Saldo</span>
+            <div class="row">
+                <span>Monto</span>
+                <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->monto_saldo,0, ",", ".")}}</span>
             </div>
         </section>
 
@@ -147,7 +158,7 @@
             <span class="preimpreso">En concepto de</span>
             <div class="row">
                 <span>producto y servicio</span>
-                <span name="a" class="pull-right negrita importeEnPesos">500.000</span>
+                <span name="a" class="pull-right negrita importeEnPesos">{{number_format ($recibo->monto_recibo,0, ",", ".")}}</span>
             </div>
 
 
@@ -156,7 +167,7 @@
         <footer>
 
             <section id="son"> <span class="preimpreso">SON:</span>
-                <output id="totalRecibo" class="negrita importeEnPesos">500.000</output>
+                <output id="totalRecibo" class="negrita importeEnPesos">{{number_format ($recibo->monto_recibo,0, ",", ".")}}</output>
             </section>
 
             <section id="firma">
@@ -170,84 +181,95 @@
 
 <div id="page1" style="page-break-before: always">
 
-    <div class="bordeRecibo">
-        <header>
+        <div class="bordeRecibo">
+            <header>
 
-            <!-- Lado Izquierdo -->
-            <div class="column left">
-                <div class="container">
-                    <h2>Consultora DC</h2>
-                    <div class="row text-left negrita h3"></div>
-                    <div class="row text-left h3">Jacaranda e/ Tajy</div>
-                    <div class="row text-left h3">San Lorenzo - Paraguay</div>
-                    <div class="row text-left h3">Telefono: (0981) 182 159</div>
+                <!-- Lado Izquierdo -->
+                <div class="column left">
+                    <div class="container">
+                        <h2>Consultora DC</h2>
+                        <div class="row text-left negrita h3"></div>
+                        <div class="row text-left h3">Jacaranda e/ Tajy</div>
+                        <div class="row text-left h3">San Lorenzo - Paraguay</div>
+                        <div class="row text-left h3">Telefono: (0981) 182 159</div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Lado Central -->
-            <div class="column center text-center"> <span id="tipoComprobante">X</span>
+                <!-- Lado Central -->
+                <div class="column center text-center"> <span id="tipoComprobante">X</span>
+                    <br>
+                    <span id="leyendaTipoComprobante" class="preimpreso">DOCUMENTO<br>NO VALIDO<br>COMO<br>FACTURA</span>
+                </div>
+
+                <!-- Lado Derecho -->
+                <div class="column right">
+                    <div class="container">
+                        <div id="lblComprobante" class="row text-center negrita h1">RECIBO</div>
+                        <div id="lblNroCmp" class="row text-center negrita h2"><span class="preimpreso">Número </span>{{'000'.$recibo->numero_recibo}}</div>
+                        <div class="row text-center h3">COPIA CLIENTE</div>
+                        <div class="row text-center h3">&nbsp;</div>
+                        <div class="row text-left h3">FECHA <span class="pull-right">{{$recibo->created_at->format('d-m-Y')}}</span></div>
+                        <div class="row text-left h3">Monto Recibo <span class="pull-right">{{number_format ($recibo->monto_recibo,0, ",", ".")}}</span></div>
+
+                    </div>
+                </div>
+            </header>
+
+            <section>{{ucwords($fecha->format('l j F Y '))
+}}
                 <br>
-                <span id="leyendaTipoComprobante" class="preimpreso">DOCUMENTO<br>NO VALIDO<br>COMO<br>FACTURA</span>
-            </div>
+                <br>
+                <span class="preimpreso">Recibimos de</span> Sr/Sra {{ ucwords($recibo->cliente->name .' '.$recibo->cliente->lastname) }}
+                <br>
+                <span class="preimpreso">la cantidad de </span><span id="importeEnLetras">{{number_format ($recibo->monto_recibo,0, ",", ".")   }} Gs</span>
+            </section>
 
-            <!-- Lado Derecho -->
-            <div class="column right">
-                <div class="container">
-                    <div id="lblComprobante" class="row text-center negrita h1">RECIBO</div>
-                    <div id="lblNroCmp" class="row text-center negrita h2"><span class="preimpreso">Nro</span> 0001 - 00000168</div>
-                    <div class="row text-center h3">ORIGINAL</div>
-                    <div class="row text-center h3">&nbsp;</div>
-                    <div class="row text-left h3">FECHA <span class="pull-right">12/11/2013</span></div>
-                    <div class="row text-left h3">CUIT <span class="pull-right">22-22222222-2</span></div>
-                    <div class="row text-left h3">INGRESOS BRUTOS <span class="pull-right">33-33333333-3</span></div>
-                    <div class="row text-left h3">INICIO DE ACTIVIDADES <span class="pull-right">01/01/1759</span></div>
+            <section id="sectionMedioPago">
+                <span class="preimpreso">Forma de Pago</span>
+                <div class="row">
+                    <span>Efectivo</span>
+                    <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->efectivo,0, ",", ".")}}</span>
                 </div>
-            </div>
-        </header>
-
-        <section>Rosario, 11 de Noviembre de 2013
-            <br>
-            <br>
-            <span class="preimpreso">Recibimos de</span> Sr Juan Martinez
-            <br>
-            <span class="preimpreso">la cantidad de </span><span id="importeEnLetras">20.000 Gs</span>
-        </section>
-
-        <section id="sectionMedioPago">
-            <span class="preimpreso">Mediante</span>
-            <div class="row">
-                <span>Efectivo</span>
-                <span class="pull-right negrita importeEnPesos">500.000</span>
-            </div>
-            <div class="row">
-                <span>Transferencia Bancaria</span>
-                <span class="pull-right negrita importeEnPesos">0</span>
-            </div>
-        </section>
-
-        <section>
-            <span class="preimpreso">En concepto de</span>
-            <div class="row">
-                <span>producto y servicio</span>
-                <span name="a" class="pull-right negrita importeEnPesos">500.000</span>
-            </div>
-
-
-        </section>
-
-        <footer>
-
-            <section id="son"> <span class="preimpreso">SON:</span>
-                <output id="totalRecibo" class="negrita importeEnPesos">500.000</output>
+                <div class="row">
+                    <span>Cheque</span>
+                    <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->cheque,0, ",", ".")}}</span>
+                </div>
+                <div class="row">
+                    <span>Otros</span>
+                    <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->otros,0, ",", ".")}}</span>
+                </div>
+                <span class="preimpreso">Monto Saldo</span>
+                <div class="row">
+                    <span>Monto</span>
+                    <span class="pull-right negrita importeEnPesos">{{number_format ($recibo->monto_saldo,0, ",", ".")}}</span>
+                </div>
             </section>
 
-            <section id="firma">
-                <div id="hr" class="pull-right">&nbsp;</div>
-                <p class="text-right">firma</p>
+            <section>
+                <span class="preimpreso">En concepto de</span>
+                <div class="row">
+                    <span>producto y servicio</span>
+                    <span name="a" class="pull-right negrita importeEnPesos">{{number_format ($recibo->monto_recibo,0, ",", ".")}}</span>
+                </div>
+
+
             </section>
 
-        </footer>
-    </div><!-- bordeRecibo -->
-</div><!-- Page1 -->
+            <footer>
+
+                <section id="son"> <span class="preimpreso">SON:</span>
+                    <output id="totalRecibo" class="negrita importeEnPesos">{{number_format ($recibo->monto_recibo,0, ",", ".")}}</output>
+                </section>
+
+                <section id="firma">
+                    <div id="hr" class="pull-right">&nbsp;</div>
+                    <p class="text-right">firma</p>
+                </section>
+
+            </footer>
+        </div><!-- bordeRecibo -->
+    </div><!-- Page1 -->
+
+
 </body>
 </html>

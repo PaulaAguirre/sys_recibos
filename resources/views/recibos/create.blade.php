@@ -14,7 +14,7 @@
                             <label for="nombre">Cliente</label>
                             <select name="user_id" class="form-control text-uppercase selectpicker" title="Seleccione cliente" data-live-search="true" >
                                 @foreach($clientes as $cliente)
-                                    <option value="{{$cliente->id}}">{{$cliente->name}} {{$cliente->lastname}}</option>
+                                    <option value="{{$cliente->id}}">{{strtoupper ($cliente->name.' '.$cliente->lastname)}}</option>
                                 @endforeach
                             </select>
                             <a href="{{URL::action ('ClienteController@create')}}" style="float: right"><button class="btn btn-bitbucket">Crear cliente</button></a>
@@ -28,9 +28,17 @@
 
 
                         <div class="form-group">
-                            <label>Monto Recibo</label>
-                            <input type="number" name="monto_recibo" required value="{{old('monto_recibo')}}" class="form-control text-uppercase" placeholder="monto del recibo">
+                            <label>Monto Efectivo</label>
+                            <input type="number" name="efectivo" required value="{{old('efectivo')}}" class="form-control text-uppercase" placeholder="efectivo recibido">
                         </div>
+                    <div class="form-group">
+                        <label>Monto Cheque</label>
+                        <input type="number" name="cheque" required value="{{old('cheque')}}" class="form-control text-uppercase" placeholder="cheque recibido">
+                    </div>
+                    <div class="form-group">
+                        <label>Otros medios de pago</label>
+                        <input type="number" name="otros" required value="{{old('otros')}}" class="form-control text-uppercase" placeholder="otros">
+                    </div>
 
                         <div class="form-group">
                             <label>Monto Saldo</label>
