@@ -27,7 +27,8 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
-    <link rel="stylesheet" href="{{asset ('maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="shortcut icon" href="{{asset('img/ingresos.png')}}" >
 </head>
 <body>
     <div id="app">
@@ -45,7 +46,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        Emision de Recibos
+                        Consultora DC
                         </a>
                 </div>
 
@@ -65,9 +66,9 @@
                                 <li><a href="{{url ('/clientes')}}">Clientes</a></li>
                                 <li><a href="{{url ('/users')}}">Usuarios</a></li>
 
-                                <li class="dropdown">
+                                <li class=" dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    <span style="color: #500a6f ">{{ Auth::user()->name }}<span class="caret"></span></span>
+                                    <span>{{ Auth::user()->name }}<span class="caret"></span></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -93,6 +94,7 @@
                 </div>
             </div>
         </nav>
+
         @yield('content')
 
         <div class="footer">
