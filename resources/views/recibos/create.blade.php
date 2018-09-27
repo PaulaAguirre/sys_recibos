@@ -17,27 +17,26 @@
                                     <option value="{{$cliente->id}}">{{strtoupper ($cliente->name.' '.$cliente->lastname)}}</option>
                                 @endforeach
                             </select>
-                            <a href="{{URL::action ('ClienteController@create')}}" style="float: right"><button class="btn btn-bitbucket">Crear cliente</button></a>
                         </div>
 
 
                         <div class="form-group">
                             <label for="descripcion">Concepto</label>
-                            <input type="text" name="concepto" value="{{old('concepto')}}" class="form-control text-uppercase" placeholder="Concepto">
+                            <input type="text" name="concepto" required value="{{old('concepto')}}" class="form-control text-uppercase" placeholder="Concepto">
                         </div>
 
 
                         <div class="form-group">
                             <label>Monto Efectivo</label>
-                            <input type="number" name="efectivo" required value="{{old('efectivo')}}" class="form-control text-uppercase" placeholder="efectivo recibido">
+                            <input type="number" name="efectivo" required value="{{old('efectivo')}}" class="form-control text-uppercase" placeholder="monto efectivo recibido">
                         </div>
                     <div class="form-group">
                         <label>Monto Cheque</label>
-                        <input type="number" name="cheque" required value="{{old('cheque')}}" class="form-control text-uppercase" placeholder="cheque recibido">
+                        <input type="number" name="cheque" required  value="{{old('cheque')}}" class="form-control text-uppercase" placeholder="monto cheque recibido">
                     </div>
                     <div class="form-group">
                         <label>Otros medios de pago</label>
-                        <input type="number" name="otros" required value="{{old('otros')}}" class="form-control text-uppercase" placeholder="otros">
+                        <input type="number" name="otros" required value="{{old('otros')}}" class="form-control text-uppercase" placeholder="monto otros medios de pago">
                     </div>
 
                         <div class="form-group">

@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" required value="{{old('email')}}" class="form-control" placeholder="user@email.com">
+                            <input type="email" name="email" required class="form-control" placeholder="user@email.com">
                         </div>
 
                         <div class="form-group">
@@ -44,7 +44,7 @@
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="password"  value="{{old('password')}}" class="form-control" placeholder="*****">
+                        <input type="password" name="password"   class="form-control" placeholder="*****">
                     </div>
 
                         <div class="form-group text-center">
