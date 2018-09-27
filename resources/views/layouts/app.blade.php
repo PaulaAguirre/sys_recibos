@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" >
+    <link rel="shortcut icon" href="{{asset('ingresos.ico')}}" >
 </head>
 <body>
     <div id="app">

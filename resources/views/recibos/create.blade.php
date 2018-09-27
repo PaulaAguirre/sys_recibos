@@ -23,7 +23,7 @@
 
                         <div class="form-group">
                             <label for="descripcion">Concepto</label>
-                            <input type="text" name="concepto" required value="{{old('concepto')}}" class="form-control text-uppercase" placeholder="Concepto">
+                            <input type="text" name="concepto" value="{{old('concepto')}}" class="form-control text-uppercase" placeholder="Concepto">
                         </div>
 
 
