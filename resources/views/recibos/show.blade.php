@@ -157,7 +157,7 @@
         <section>
             <span class="preimpreso">En concepto de</span>
             <div class="row">
-                <span>producto y servicio</span>
+                <span>{{$recibo->concepto}}</span>
                 <span name="a" class="pull-right negrita importeEnPesos">{{number_format ($recibo->monto_recibo,0, ",", ".")}}</span>
             </div>
 
