@@ -169,6 +169,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         //OwenIt\Auditing\AuditingServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
 
     ],

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81f52e4086e9211a953653a38d01dfcf",
+    "content-hash": "e12de63af3a009b6131f473345facd1c",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -1995,21 +1995,25 @@
         },
         {
             "name": "rap2hpoutre/laravel-log-viewer",
-            "version": "v0.21.0",
+            "version": "v0.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rap2hpoutre/laravel-log-viewer.git",
-                "reference": "253dfd468708de8130a08d1d7ba160df88cbce8a"
+                "reference": "fd0821b073771f3e7256664417055a8bbb091059"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/253dfd468708de8130a08d1d7ba160df88cbce8a",
-                "reference": "253dfd468708de8130a08d1d7ba160df88cbce8a",
+                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/fd0821b073771f3e7256664417055a8bbb091059",
+                "reference": "fd0821b073771f3e7256664417055a8bbb091059",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "4.2.*|5.*",
                 "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.6",
+                "phpunit/phpunit": "^7"
             },
             "type": "laravel-package",
             "extra": {
@@ -2046,7 +2050,7 @@
                 "logging",
                 "lumen"
             ],
-            "time": "2018-08-21T21:58:49+00:00"
+            "time": "2018-10-01T09:01:30+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

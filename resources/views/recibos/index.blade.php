@@ -14,7 +14,7 @@
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-condensed table-hover">
                         <thead style="background-color: #8eb4cb">
-                            <th class="col-lg-1">#Recibo</th>
+                            <th class="">#Recibo</th>
                             <th>Cliente</th>
                             <th>Concepto</th>
                             <th>Monto Recibo</th>
@@ -32,7 +32,7 @@
                                 <td>{{number_format ($recibo->monto_saldo,0, ",", ".")}}</td>
                                 <td>{{$recibo->estado}}</td>
                                 <td>{{$recibo->created_at->format('d-m-Y')}}</td>
-                                <td style="text-align: center">
+                                <td class="" style="text-align: center">
                                     <a href="{{URL::action('ReciboController@show',$recibo)}}"><button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="fa fa-print" aria-hidden="true"></i></button></a>
                                     <a href="{{URL::action('ReciboController@edit',$recibo)}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-pencil-square" aria-hidden="true"></i></button></a>
 
