@@ -21,7 +21,7 @@
                             <th>Monto Saldo</th>
                             <th>Estado</th>
                             <th class="col-lg-1">Fecha</th>
-                            <th>Opciones</th>
+                            <th class="col-lg-1">Opciones</th>
                         </thead>
                         @foreach($recibos as $recibo)
                             <tr>

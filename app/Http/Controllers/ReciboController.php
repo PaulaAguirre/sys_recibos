@@ -10,8 +10,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Jenssegers\Date\Date;
 use function MongoDB\BSON\toJSON;
 use DB;
-
-
+use Validator;
 
 class ReciboController extends Controller
 {
@@ -81,6 +80,16 @@ class ReciboController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect ( 'recibos/create' )
+                ->withErrors ( $validator )
+                ->withInput ();
+        }
 
         $recibo_anterior = Recibo::all ()->last();
 
