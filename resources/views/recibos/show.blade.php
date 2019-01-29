@@ -100,7 +100,7 @@
                     <div class="row text-left negrita h3"></div>
                     <div class="row text-left h3">Jacaranda e/ Tajy</div>
                     <div class="row text-left h3">San Lorenzo - Paraguay</div>
-                    <div class="row text-left h3">Telefono: (0981) 182 159</div>
+                    <div class="row text-left h3">Telefono: (0981) 182 519</div>
                 </div>
             </div>
 
@@ -191,7 +191,7 @@
                         <div class="row text-left negrita h3"></div>
                         <div class="row text-left h3">Jacaranda e/ Tajy</div>
                         <div class="row text-left h3">San Lorenzo - Paraguay</div>
-                        <div class="row text-left h3">Telefono: (0981) 182 159</div>
+                        <div class="row text-left h3">Telefono: (0981) 182 519</div>
                     </div>
                 </div>
 
